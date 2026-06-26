@@ -1,17 +1,33 @@
 [![](https://dcbadge.vercel.app/api/server/3E8ca2dkcC)](https://discord.gg/osmu)
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/bitaxeorg/esp-miner/total)
-![GitHub commit activity](https://img.shields.io/github/commit-activity/t/bitaxeorg/esp-miner)
-![GitHub contributors](https://img.shields.io/github/contributors/bitaxeorg/esp-miner)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/awxhw/StarMiner/total)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/awxhw/StarMiner)
+![GitHub contributors](https://img.shields.io/github/contributors/awxhw/StarMiner)
 ![Alt](https://repobeats.axiom.co/api/embed/70889479b1e002c18a184b05bc5cbf2ed3718579.svg "Repobeats analytics image")
 
-# ESP-Miner
-esp-miner is open source ESP32 firmware for the [Bitaxe](https://github.com/bitaxeorg/bitaxe)
+# StarMiner ESP-Miner
 
-If you are looking for premade images to load on your Bitaxe, check out the [latest release](https://github.com/bitaxeorg/ESP-Miner/releases/latest) page. Maybe you want [instructions](https://github.com/bitaxeorg/ESP-Miner/blob/master/flashing.md) for loading factory images.
+StarMiner ESP-Miner is a firmware fork for StarMiner, a 12V Bitaxe-derived open hardware miner design. It is based on the open source ESP-Miner firmware for the [Bitaxe](https://github.com/bitaxeorg/bitaxe) and keeps the AxeOS web interface and ESP-IDF build flow.
+
+For stock Bitaxe hardware, use the upstream [ESP-Miner releases](https://github.com/bitaxeorg/ESP-Miner/releases/latest) and upstream [factory image flashing instructions](https://github.com/bitaxeorg/ESP-Miner/blob/master/flashing.md). For StarMiner 12V boards, build and flash images from this fork with the matching `config-*.cvs` file.
+
+## StarMiner 12V hardware notes
+
+- Target hardware: StarMiner 12V boards derived from the open Bitaxe hardware design.
+- Firmware base: upstream ESP-Miner with AxeOS, adapted for the StarMiner hardware configuration.
+- Power input: use the 12V supply required by the StarMiner board design. Do not assume stock Bitaxe power requirements apply.
+- Flashing: use firmware images and configuration files built from this fork for StarMiner boards. Upstream Bitaxe factory images may not match the 12V hardware variant.
+- Tuning: verify cooling, ASIC voltage, ASIC frequency, and power delivery before increasing clocks or enabling overclock-style settings.
+
+## Device photos
+
+<p align="center">
+  <img src="image/1782460414834..jpg" alt="StarMiner 12V device photo" width="45%">
+  <img src="image/1782460414912..jpg" alt="StarMiner 12V device photo" width="45%">
+</p>
 
 # Bitaxetool
-We also have a command line python tool for flashing Bitaxe and updating the config called Bitaxetool 
+We also have a command line python tool for flashing Bitaxe/StarMiner devices and updating the config called Bitaxetool 
 
 **Bitaxetool Requires Python3.4 or later and pip**
 
@@ -20,7 +36,7 @@ Install bitaxetool from pip. pip is included with Python 3.4 but if you need to 
 ```
 pip install --upgrade bitaxetool
 ```
-The bitaxetool includes all necessary library for flashing the binaries to the Bitaxe Hardware.
+The bitaxetool includes the necessary libraries for flashing binaries to Bitaxe-derived hardware, including StarMiner.
 
 **Notes**
  - The bitaxetool does not work properly with esptool v5.x.x, esptool v4.9.0 or earlier is required.
@@ -30,20 +46,20 @@ The bitaxetool includes all necessary library for flashing the binaries to the B
 pip install bitaxetool==0.6.1
 ```
 
-- Flash a "factory" image to a Bitaxe to reset to factory settings. Make sure to choose an image built for your hardware version (401) in this case:
+- Flash a "factory" image to reset to factory settings. Make sure to choose an image built for your exact hardware version or StarMiner board variant:
 
 ```
-bitaxetool --firmware ./esp-miner-factory-401-v2.4.2.bin
+bitaxetool --firmware ./esp-miner-factory-xxx-vX.Y.Z.bin
 ```
-- Flash just the NVS config to a bitaxe:
+- Flash just the NVS config to a StarMiner/Bitaxe board:
 
 ```
-bitaxetool --config ./config-401.cvs
+bitaxetool --config ./config-xxx.cvs
 ```
-- Flash both a factory image _and_ a config to your Bitaxe: note the settings in the config file will overwrite the config already baked into the factory image:
+- Flash both a factory image _and_ a config: note the settings in the config file will overwrite the config already baked into the factory image:
 
 ```
-bitaxetool --config ./config-401.cvs --firmware ./esp-miner-factory-401-v2.4.2.bin
+bitaxetool --config ./config-xxx.cvs --firmware ./esp-miner-factory-xxx-vX.Y.Z.bin
 ```
 
 ## AxeOS API
@@ -208,7 +224,7 @@ In the event that the admin web front end is inaccessible, for example because o
 
 ### Unlock Settings
 
-In order to unlock the Input fields for ASIC Frequency and ASIC Core Voltage you need to append `?oc` to the end of the settings tab URL in your browser. Be aware that without additional cooling overclocking can overheat and/or damage your Bitaxe.
+In order to unlock the Input fields for ASIC Frequency and ASIC Core Voltage you need to append `?oc` to the end of the settings tab URL in your browser. Be aware that without additional cooling overclocking can overheat and/or damage your StarMiner/Bitaxe board.
 
 ## Development using esp-miner/devcontainer
 
@@ -223,8 +239,8 @@ This configuration allows you to edit locally and compile the source code using 
 These instructions will assume an installation to your home directory.
 ```
 cd ~
-git clone --recursive https://github.com/bitaxeorg/ESP-MINER.git
-cd ESP-MINER
+git clone --recursive https://github.com/awxhw/StarMiner.git
+cd StarMiner
 git checkout <the branch you want>
 git submodule update --init --recursive
 # The next step builds the docker container that will compile the source code
@@ -234,7 +250,7 @@ docker build -t espminer-build .devcontainer
 ### Building
 
 ```
-cd ~/ESP-MINER
+cd ~/StarMiner
 docker run --rm -it -v $PWD:/workspace espminer-build /bin/bash
 git config --global --add safe.directory /workspace    # set git permissions or build will fail; only done once
 cd /workspace
@@ -254,7 +270,7 @@ Once the build is done exit out of the docker session and flash the new firmware
 
 This project uses git submodules (e.g. libsecp256k1). Clone with `--recursive`:
 ```
-git clone --recursive https://github.com/bitaxeorg/ESP-Miner.git
+git clone --recursive https://github.com/awxhw/StarMiner.git
 ```
 
 If you already have a checkout, initialize the submodules with:
@@ -275,13 +291,13 @@ Note: if using VSCode, you may have to configure the settings.json file to match
 
 ### Flashing
 
-With the bitaxe connected to your computer via USB, run:
+With the StarMiner/Bitaxe connected to your computer via USB, run:
 
 ```
 bitaxetool --config ./config-xxx.cvs --firmware ./esp-miner-merged.bin
 ```
 
-where xxx is the config file for your hardware version. You can see the list of available config files in the root of the repository.
+where xxx is the config file for your hardware version. For StarMiner 12V boards, use the config file that matches the StarMiner hardware variant from this fork. You can see the list of available config files in the root of the repository.
 
 A custom board version is also possible with `config-custom.cvs`. A custom board needs to be based on an existing `devicemodel` and `asicmodel`.
 
