@@ -5,25 +5,29 @@
 ![GitHub contributors](https://img.shields.io/github/contributors/awxhw/StarMiner)
 ![Alt](https://repobeats.axiom.co/api/embed/70889479b1e002c18a184b05bc5cbf2ed3718579.svg "Repobeats analytics image")
 
-# StarMiner ESP-Miner
+<p align="center">
+  <img src="image/logo1.png" alt="StarMiner brand trademark" width="420">
+</p>
 
-StarMiner ESP-Miner is a firmware fork for StarMiner, a 12V Bitaxe-derived open hardware miner design. It is based on the open source ESP-Miner firmware for the [Bitaxe](https://github.com/bitaxeorg/bitaxe) and keeps the AxeOS web interface and ESP-IDF build flow.
+<h1 align="center">StarMiner ESP-Miner</h1>
 
-For stock Bitaxe hardware, use the upstream [ESP-Miner releases](https://github.com/bitaxeorg/ESP-Miner/releases/latest) and upstream [factory image flashing instructions](https://github.com/bitaxeorg/ESP-Miner/blob/master/flashing.md). For StarMiner 12V boards, build and flash images from this fork with the matching `config-*.cvs` file.
+StarMiner ESP-Miner is a firmware fork for StarMiner, a DC 12V Bitaxe-derived open hardware miner design. It is based on the open source ESP-Miner firmware for the [Bitaxe](https://github.com/bitaxeorg/bitaxe) and keeps the AxeOS web interface and ESP-IDF build flow.
 
-## StarMiner 12V hardware notes
+For stock Bitaxe hardware, use the upstream [ESP-Miner releases](https://github.com/bitaxeorg/ESP-Miner/releases/latest) and upstream [factory image flashing instructions](https://github.com/bitaxeorg/ESP-Miner/blob/master/flashing.md). For StarMiner DC 12V boards, build and flash images from this fork with the matching `config-601a.cvs` file.
 
-- Target hardware: StarMiner 12V boards derived from the open Bitaxe hardware design.
+## StarMiner DC 12V hardware notes
+
+- Target hardware: StarMiner DC 12V boards derived from the open Bitaxe hardware design.
 - Firmware base: upstream ESP-Miner with AxeOS, adapted for the StarMiner hardware configuration.
-- Power input: use the 12V supply required by the StarMiner board design. Do not assume stock Bitaxe power requirements apply.
-- Flashing: use firmware images and configuration files built from this fork for StarMiner boards. Upstream Bitaxe factory images may not match the 12V hardware variant.
+- Power input: use the DC 12V supply required by the StarMiner board design. Do not assume stock Bitaxe power requirements apply.
+- Flashing: use firmware images and configuration files built from this fork for StarMiner boards. Upstream Bitaxe factory images may not match the DC 12V hardware variant.
 - Tuning: verify cooling, ASIC voltage, ASIC frequency, and power delivery before increasing clocks or enabling overclock-style settings.
 
 ## Device photos
 
 <p align="center">
-  <img src="image/1782460414834..jpg" alt="StarMiner 12V device photo" width="45%">
-  <img src="image/1782460414912..jpg" alt="StarMiner 12V device photo" width="45%">
+  <img src="image/1782460414834..jpg" alt="StarMiner DC 12V device photo" width="45%">
+  <img src="image/1782460414912..jpg" alt="StarMiner DC 12V device photo" width="45%">
 </p>
 
 # Bitaxetool
@@ -49,17 +53,17 @@ pip install bitaxetool==0.6.1
 - Flash a "factory" image to reset to factory settings. Make sure to choose an image built for your exact hardware version or StarMiner board variant:
 
 ```
-bitaxetool --firmware ./esp-miner-factory-xxx-vX.Y.Z.bin
+bitaxetool --firmware ./esp-miner-factory-601a-vX.Y.Z.bin
 ```
 - Flash just the NVS config to a StarMiner/Bitaxe board:
 
 ```
-bitaxetool --config ./config-xxx.cvs
+bitaxetool --config ./config-601a.cvs
 ```
 - Flash both a factory image _and_ a config: note the settings in the config file will overwrite the config already baked into the factory image:
 
 ```
-bitaxetool --config ./config-xxx.cvs --firmware ./esp-miner-factory-xxx-vX.Y.Z.bin
+bitaxetool --config ./config-601a.cvs --firmware ./esp-miner-factory-601a-vX.Y.Z.bin
 ```
 
 ## AxeOS API
@@ -294,10 +298,10 @@ Note: if using VSCode, you may have to configure the settings.json file to match
 With the StarMiner/Bitaxe connected to your computer via USB, run:
 
 ```
-bitaxetool --config ./config-xxx.cvs --firmware ./esp-miner-merged.bin
+bitaxetool --config ./config-601a.cvs --firmware ./esp-miner-merged.bin
 ```
 
-where xxx is the config file for your hardware version. For StarMiner 12V boards, use the config file that matches the StarMiner hardware variant from this fork. You can see the list of available config files in the root of the repository.
+where 601a is the config file for your hardware version. For StarMiner DC 12V boards, use the config file that matches the StarMiner hardware variant from this fork. You can see the list of available config files in the root of the repository.
 
 A custom board version is also possible with `config-custom.cvs`. A custom board needs to be based on an existing `devicemodel` and `asicmodel`.
 
@@ -319,6 +323,20 @@ If your Wi-Fi router has both of these options you might have to disable them bo
 
 If your still having problems here, check other settings within the Wi-Fi router and the bitaxe device, this includes the URL for
 the Stratum Host and Stratum Port.
+
+## Contact
+
+| Email | Telegram | WhatsApp | Home Page |
+| :---: | :---: | :---: | :---: |
+| support@ustarminer.com | <img src="image/telegram.png" alt="Telegram contact QR code" width="120"> | <img src="image/whatsapp.png" alt="WhatsApp contact QR code" width="120"> | [www.ustarminer.com](https://www.ustarminer.com/) |
+
+For StarMiner DC 12V hardware questions, firmware issues, or compatibility reports, please contact support or open a [GitHub issue](https://github.com/awxhw/StarMiner/issues) with your board variant, firmware version, power supply details, and relevant logs.
+
+## Brand and trademark notice
+
+StarMiner is used in this repository as the project and product mark for this DC 12V Bitaxe-derived hardware and firmware fork. The StarMiner name, device photos, and related project branding should not be used in a way that suggests official endorsement, certification, or release ownership without permission from the project maintainers.
+
+Bitaxe, ESP-Miner, AxeOS, and other third-party names remain the property of their respective owners. References to upstream projects are descriptive and are provided for attribution and compatibility context only.
 
 ## Attributions
 
