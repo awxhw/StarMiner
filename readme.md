@@ -23,6 +23,17 @@ For stock Bitaxe hardware, use the upstream [ESP-Miner releases](https://github.
 - Flashing: use firmware images and configuration files built from this fork for StarMiner boards. Upstream Bitaxe factory images may not match the DC 12V hardware variant.
 - Tuning: verify cooling, ASIC voltage, ASIC frequency, and power delivery before increasing clocks or enabling overclock-style settings.
 
+## Hardware design files
+
+The StarMiner BitaxeGamma601a V1.0 DC 12V hardware package is available in [`sch/`](./sch/). See [`sch/README_HARDWARE.md`](./sch/README_HARDWARE.md) for the PADS source inventory, schematic preview, Gerber outputs, and CERN-OHL-S-2 compliance notes.
+
+Key hardware files:
+
+- [`sch/bitaxeGamma601a_V1.0.sch`](./sch/bitaxeGamma601a_V1.0.sch) - editable PADS schematic source.
+- [`sch/bitaxeGamma601a_V1.0.pcb`](./sch/bitaxeGamma601a_V1.0.pcb) - editable PADS PCB layout source.
+- [`sch/bitaxeGamma601a_V1.0_20260630.pdf`](./sch/bitaxeGamma601a_V1.0_20260630.pdf) - schematic PDF preview.
+- [`sch/gerbers/`](./sch/gerbers/) - PCB fabrication outputs exported from the PADS design.
+
 ## Device photos
 
 <p align="center">
